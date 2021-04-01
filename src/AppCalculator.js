@@ -10,16 +10,16 @@ const App = () => {
       switch(operation){
         case("+"):
         console.log(+previous + +current);
-        break;
+        return (+previous + +current)
         case("-"):
         console.log(+previous - +current);
-        break;
+        return (+previous + +current)
         case("*"):
         console.log(+previous * +current);
-        break;
+        return (+previous + +current)
         case("/"):
         console.log(+previous / +current);
-        break;
+        return (+previous + +current)
       }
     }
   
@@ -63,6 +63,7 @@ const App = () => {
           }}>/</button>
 
           <button onClick={calculate}>enter (console)</button>
+          <div>{calculate()}</div>
           </div>
           
         </section>
