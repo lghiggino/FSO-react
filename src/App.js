@@ -1,38 +1,77 @@
-import React, {useState, useEffect} from 'react'
-import styles from "./App.css"
+import React, {useState} from 'react'
+
+const Button = ( {handleClick, text}) => {
+    return (
+        <button onClick={handleClick}>{text}</button>
+    )
+}
+
+const LineStatistics = (props) => {
+    return (
+        <li>{props.text}: {props.value}</li>
+    )
+}
+
+const Stats = (props) => {
+    return (
+        <h3>{props.text}</h3>
+    )
+}
 
 const App = () => {
-    const [clicks, setClicks] = useState(
-        {
-            left: 0,
-            right: 0,
-        }
-    )
+    //states
+    const [clicks, setClicks] = useState (
+            {
+                good: 0,
+                neutral: 0,
+                bad: 0,
+            })
+    
+    //variables 
+    let goodF = 0
+    let neutralF = 0
+    let badF = 0
+    const allClicks = (clicks.good + clicks.neutral + clicks.bad)
 
-    useEffect(() => {    
-        document.title = `left: ${clicks.left} - right: ${clicks.right}`
-    })
+    //state handlers
+    const handleGoodClick = () => {
+        setClicks({...clicks, good: clicks.good + 1})
+        goodF = goodF + 1
+    }
+    const handleNeutralClick = () => {
+        setClicks({...clicks, neutral: clicks.neutral + 1})
+        neutralF = neutralF + 1
+    }
+    const handleBadClick = () => {
+        setClicks({...clicks, bad: clicks.bad + 1})
+        badF = badF + 1
 
-    const handleLeftClick = () => {
-        setClicks({...clicks, left: clicks.left + 1})
     }
 
-    const handleRightClick = () => {
-        setClicks({...clicks, right: clicks.right + 1})
-    }
-
-    return (
+    //render
+    return(
         <>
+            <h3>give feedback</h3>
+
+            <Button handleClick={handleGoodClick} text={"Good"} />
+            <Button handleClick={handleNeutralClick} text={"Neutral"} />
+            <Button handleClick={handleBadClick} text={"Bad"} />
+
             <div>
-                {clicks.left}
-                <button onClick={handleLeftClick}>left</button>
-                <button onClick={handleRightClick}>right</button>
-                {clicks.right}
+            <h3>statistics</h3>
+            <ul>
+                <LineStatistics text={"good"} value={clicks.good}/>
+                <LineStatistics text={"neutral"} value={clicks.neutral}/>
+                <LineStatistics text={"bad"} value={clicks.bad}/>
+                <LineStatistics text={"all"} value={allClicks}/>
+                <LineStatistics text={"average"} value={(clicks.good - clicks.bad / allClicks) || 0}/>
+                <LineStatistics text={"positive"} value={((clicks.good/allClicks) || 1) * 100}/>
+            </ul>
             </div>
-        </>
-      
+
+        </> 
+        
     )
-  }
+}
 
 export default App
-//npm start
