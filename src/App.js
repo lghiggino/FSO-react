@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styles from "./App.css"
 
 const App = () => {
@@ -8,6 +8,10 @@ const App = () => {
             right: 0,
         }
     )
+
+    useEffect(() => {    
+        document.title = `left: ${clicks.left} - right: ${clicks.right}`
+    })
 
     const handleLeftClick = () => {
         setClicks({...clicks, left: clicks.left + 1})
