@@ -12,9 +12,27 @@ const LineStatistics = (props) => {
     )
 }
 
-const Stats = (props) => {
+const TableLine = (props) => {
     return (
-        <h3>{props.text}</h3>
+        <tr>
+            <td>{props.statTitle}</td>
+            <td>{props.statValue}</td>
+        </tr>
+    )
+}
+
+const MainStats = (props) => {
+    return (
+        <table>
+            <tbody>
+                <TableLine statTitle={"good"} statValue={props.good}/>
+                <TableLine statTitle={"neutral"} statValue={props.neutral}/>
+                <TableLine statTitle={"bad"} statValue={props.bad}/>
+                <TableLine statTitle={"all"} statValue={props.all}/>
+                <TableLine statTitle={"average"} statValue={props.average}/>
+                <TableLine statTitle={"positive"} statValue={props.positive}/>
+            </tbody>
+        </table>
     )
 }
 
@@ -59,16 +77,26 @@ const App = () => {
 
             <div>
             <h3>statistics</h3>
-            <ul>
-                <LineStatistics text={"good"} value={clicks.good}/>
-                <LineStatistics text={"neutral"} value={clicks.neutral}/>
-                <LineStatistics text={"bad"} value={clicks.bad}/>
-                <LineStatistics text={"all"} value={allClicks}/>
-                <LineStatistics text={"average"} value={(clicks.good - clicks.bad / allClicks) || 0}/>
-                <LineStatistics text={"positive"} value={((clicks.good/allClicks) || 1) * 100}/>
-            </ul>
-            </div>
 
+            {/* <ul>
+                {allClicks === 0 ? 
+                    <li>{"No Feedback given"}</li> : 
+                    <>
+                        <LineStatistics text={"good"} value={clicks.good}/>
+                        <LineStatistics text={"neutral"} value={clicks.neutral}/>
+                        <LineStatistics text={"bad"} value={clicks.bad}/>
+                        <LineStatistics text={"all"} value={allClicks}/>
+                        <LineStatistics text={"average"} value={(clicks.good - clicks.bad / allClicks) || 0}/>
+                        <LineStatistics text={"positive"} value={(((clicks.good/allClicks) || 1) * 100).toFixed(2)}/>
+                    </>
+                    }
+                
+            </ul> */}
+            </div>
+            {allClicks === 0 ? 
+                <p>{"No Feedback given"}</p> :
+                <MainStats good={clicks.good} neutral={clicks.neutral} bad={clicks.bad} all={allClicks} average={(clicks.good - clicks.bad / allClicks) || 0} positive={(((clicks.good/allClicks) || 1) * 100).toFixed(2)}/>
+            }
         </> 
         
     )
