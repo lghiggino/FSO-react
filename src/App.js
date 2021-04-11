@@ -51,8 +51,6 @@ const App = () => {
                 filteredMaxeds.push(idx)
             }
         })
-        console.log(filteredMaxeds)
-        //iterate by filteredMaxeds and render N number os strings of maxVoted
         setMostVoted(maxVotedIndex)
     }
 
