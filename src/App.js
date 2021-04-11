@@ -24,7 +24,7 @@ const App = () => {
     //state handlers
     const generateRandomNumber = () => {
         const randomNumber = Math.floor(Math.random() * anecdotes.length)
-        return randomNumber
+        return randomNumber === selected ? generateRandomNumber() : randomNumber
     }
     
     const generateAnecdote = () => {
