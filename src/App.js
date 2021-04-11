@@ -10,6 +10,7 @@ const App = () => {
     //states
     const [vote, setVote] = useState([0,0,0,0,0,0])
     const [selected, setSelected] = useState(0)
+    const [mostVoted, setMostVoted] = useState(0)
 
     //variables 
     const anecdotes = [
@@ -30,29 +31,46 @@ const App = () => {
     const generateAnecdote = () => {
         const randomNumber = generateRandomNumber()
         setSelected(randomNumber) 
+        checkMostVoted()
     }
 
     const upvoteAnecdote = () => {
         const mappedVotes = vote.map((el,idx) => {
-            if (idx === selected) {
-                return el = el + 1
-            }else {
-                return el
-            }
+            return (idx === selected) ? el = el + 1 : el
         })
         setVote(mappedVotes)
+        checkMostVoted()
+    }
+
+    function checkMostVoted(){
+        const maxVoted = Math.max(...vote)
+        const maxVotedIndex = vote.indexOf(maxVoted)
+        const filteredMaxeds = []
+        vote.forEach((el, idx) => {
+            if (el === maxVoted){
+                filteredMaxeds.push(idx)
+            }
+        })
+        console.log(filteredMaxeds)
+        //iterate by filteredMaxeds and render N number os strings of maxVoted
+        setMostVoted(maxVotedIndex)
     }
 
     //render
     return(
         <>
             <section>
+                <h1>Anecdote of the day</h1>
                 {anecdotes[selected]}
             </section>
             <section>
                 <Button handleClick={generateAnecdote} text={"generate another anecdote"} />
                 <Button handleClick={upvoteAnecdote} text={"Upvote"} />
                 <p> this anecdote current score is {vote[selected]}</p>
+            </section>
+            <section>
+                <h2>Most Voted Anecdote</h2>
+                <p>{anecdotes[mostVoted]}</p>
             </section>
         </> 
         
