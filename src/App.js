@@ -6,8 +6,6 @@ const Button = ( {handleClick, text}) => {
     )
 }
 
-
-
 const App = () => {
     //states
     const [vote, setVote] = useState([0,0,0,0,0,0])
@@ -32,12 +30,17 @@ const App = () => {
     const generateAnecdote = () => {
         const randomNumber = generateRandomNumber()
         setSelected(randomNumber) 
-        manageUpvote(randomNumber)
     }
 
-    const manageUpvote = (number) => {
-        console.log(number)
-
+    const upvoteAnecdote = () => {
+        const mappedVotes = vote.map((el,idx) => {
+            if (idx === selected) {
+                return el = el + 1
+            }else {
+                return el
+            }
+        })
+        setVote(mappedVotes)
     }
 
     //render
@@ -47,11 +50,10 @@ const App = () => {
                 {anecdotes[selected]}
             </section>
             <section>
-                <Button handleClick={generateAnecdote} text={"next anecdote"}></Button>
-                <Button handleClick={upvote} text={"vote"}></Button>
+                <Button handleClick={generateAnecdote} text={"generate another anecdote"} />
+                <Button handleClick={upvoteAnecdote} text={"Upvote"} />
+                <p> this anecdote current score is {vote[selected]}</p>
             </section>
-            
-            
         </> 
         
     )
