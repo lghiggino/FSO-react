@@ -7,6 +7,7 @@ const Button = ( {handleClick, text}) => {
 }
 
 const App = () => {
+    console.log("banana")
     //states
     const [vote, setVote] = useState([0,0,0,0,0,0])
     const [selected, setSelected] = useState(0)
