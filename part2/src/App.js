@@ -5,7 +5,7 @@ const Course = ({ course }) => {
   let totalExercises = course.parts.reduce( (acc, curr) => {
     // console.log("what is happening?")
     // console.log("acc", acc)
-    // console.log("curr", curr)
+    // console.log("curr", curr, "exercises", curr.exercises)
     return acc + curr.exercises
   }, 0)
   return(
