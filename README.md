@@ -1,3 +1,4 @@
 # Full Stack Open React Course from:
 
-https://fullstackopen.com/en/part1 
+Full Stack Open by Leonardo Nobre Ghiggino
+
