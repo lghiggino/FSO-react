@@ -1,30 +1,61 @@
-const subjects = [
-  {name: "George", age: "25"},
-  {name: "Daisy", age: "21"},
-  {name: "Emerald", age: "46"},
-]
+import React from 'react'
 
-const Hello = ( {name, age} ) => {
+const Header = ({course}) => {
   return(
-    <p>Hello {name}! You are {age} years old.</p>
+    <h1>{course}</h1>
   )
 }
 
-function App() {
-  const now = new Date().toDateString()
-  const a = 10
-  const b = 20
-  return (
-    <div>
-      {subjects.map( (el,idx) => 
-        <Hello key={idx} name={el.name} age={el.age}/>
-      )}
-      <p>
-        {a} plus {b} is equal to {a + b}
-      </p>
-      <p>Today is: {now} </p>
-    </div>
-  );
+const Content = ({part1, part2, part3, exercises1, exercises2, exercises3}) => {
+  return(
+    <>
+      <Part partNumber={part1} exerciseNumber={exercises1}/>
+      <Part partNumber={part2} exerciseNumber={exercises2}/>
+      <Part partNumber={part3} exerciseNumber={exercises3}/>
+    </>
+  )
 }
 
-export default App;
+const Part = ({partNumber, exerciseNumber}) => {
+  return (
+    <p>{partNumber} {exerciseNumber}</p>
+  )
+}
+
+const Total = ({exercises1, exercises2, exercises3}) => {
+  return (
+    <p>Number of exercises {exercises1 + exercises2 + exercises3}</p>
+  )
+}
+
+
+const App = () => {
+  const course = 'Half Stack application development'
+  const part1 = 'Fundamentals of React'
+  const exercises1 = 10
+  const part2 = 'Using props to pass data'
+  const exercises2 = 7
+  const part3 = 'State of a component'
+  const exercises3 = 14
+
+  return (
+    <div>
+      <Header course={course}/>
+      <Content 
+        part1 = {part1}
+        part2 = {part2}
+        part3 = {part3}
+        exercises1 = {exercises1}
+        exercises2 = {exercises2}
+        exercises3 = {exercises3}
+      />
+      <Total 
+        exercises1 = {exercises1}
+        exercises2 = {exercises2}
+        exercises3 = {exercises3}
+      />
+    </div>
+  )
+}
+
+export default App
