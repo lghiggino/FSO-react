@@ -101,16 +101,59 @@ import React, { useState } from 'react'
 //   )
 // }
 
-const App = () => {
-  const [left, setLeft] = useState(0)
-  const [right, setRight] = useState(0)
+const History = ( {allClicks} ) => {
+  if (!allClicks.length){
+    return(
+      <div>
+        <p>Press the buttons to see the score</p>
+      </div>
+    )
+  }
+  else{
+    return (
+      <div>
+        <p>Button press history: {allClicks.join(", ")}</p>
+      </div>
+    )
+  }
+}
 
+const Button = ({handleClick, text}) => {
   return(
+    <button onClick={handleClick}>
+    {text}
+  </button>
+  )
+  
+}
+
+const App = () => {
+  const [clicks, setClicks] = useState(
+    {
+      left: 0,
+      right: 0
+    }
+  )
+  const [allClicks, setAllClicks] = useState([])
+
+  const handleLeftClick = () => {
+    setAllClicks(allClicks.concat("L"))
+    setClicks({...clicks, left: clicks.left + 1})
+  }
+
+  const handleRightClick = () => { 
+    setAllClicks(allClicks.concat("R"))
+    setClicks({...clicks, right: clicks.right + 1})
+  }
+
+
+  return (
     <div>
-      {left}
-      <button onClick={() => {setLeft(left+1)}}>Left</button>
-      <button onClick={() => {setRight(right+1)}}>Right</button>
-      {right}
+      {clicks.left}
+      <Button handleClick={handleLeftClick} text={"Left"}></Button>
+      <Button handleClick={handleRightClick} text={"Right"}></Button>
+      {clicks.right}
+      <History allClicks={allClicks}/>
     </div>
   )
 }
