@@ -101,59 +101,79 @@ import React, { useState } from 'react'
 //   )
 // }
 
-const History = ( {allClicks} ) => {
-  if (!allClicks.length){
-    return(
-      <div>
-        <p>Press the buttons to see the score</p>
-      </div>
-    )
-  }
-  else{
-    return (
-      <div>
-        <p>Button press history: {allClicks.join(", ")}</p>
-      </div>
-    )
-  }
-}
+// const History = ( {allClicks} ) => {
+//   if (!allClicks.length){
+//     return(
+//       <div>
+//         <p>Press the buttons to see the score</p>
+//       </div>
+//     )
+//   }
+//   else{
+//     return (
+//       <div>
+//         <p>Button press history: {allClicks.join(", ")}</p>
+//       </div>
+//     )
+//   }
+// }
 
-const Button = ({handleClick, text}) => {
-  return(
-    <button onClick={handleClick}>
-    {text}
-  </button>
-  )
+// const Button = ({handleClick, text}) => {
+//   return(
+//     <button onClick={handleClick}>
+//     {text}
+//   </button>
+//   )
   
-}
+// }
+
+// const App = () => {
+//   const [clicks, setClicks] = useState(
+//     {
+//       left: 0,
+//       right: 0
+//     }
+//   )
+//   const [allClicks, setAllClicks] = useState([])
+
+//   const handleLeftClick = () => {
+//     setAllClicks(allClicks.concat("L"))
+//     setClicks({...clicks, left: clicks.left + 1})
+//   }
+
+//   const handleRightClick = () => { 
+//     setAllClicks(allClicks.concat("R"))
+//     setClicks({...clicks, right: clicks.right + 1})
+//   }
+
+
+//   return (
+//     <div>
+//       {clicks.left}
+//       <Button handleClick={handleLeftClick} text={"Left"}></Button>
+//       <Button handleClick={handleRightClick} text={"Right"}></Button>
+//       {clicks.right}
+//       <History allClicks={allClicks}/>
+//     </div>
+//   )
+// }
+
+// ********** DICE ROLLER
+
 
 const App = () => {
-  const [clicks, setClicks] = useState(
-    {
-      left: 0,
-      right: 0
-    }
-  )
-  const [allClicks, setAllClicks] = useState([])
+  const [value, setValue] = useState(10)
 
-  const handleLeftClick = () => {
-    setAllClicks(allClicks.concat("L"))
-    setClicks({...clicks, left: clicks.left + 1})
+  const setToValue = (newValue) => {
+    setValue(newValue)
   }
 
-  const handleRightClick = () => { 
-    setAllClicks(allClicks.concat("R"))
-    setClicks({...clicks, right: clicks.right + 1})
-  }
-
-
-  return (
+  return(
     <div>
-      {clicks.left}
-      <Button handleClick={handleLeftClick} text={"Left"}></Button>
-      <Button handleClick={handleRightClick} text={"Right"}></Button>
-      {clicks.right}
-      <History allClicks={allClicks}/>
+      {value}
+      <button onClick={() => {setToValue(1000)}}>thousand</button>
+      <button onClick={() => {setToValue(0)}}>reset</button>
+      <button onClick={() => {setToValue(value + 1)}}>add 1</button>
     </div>
   )
 }
