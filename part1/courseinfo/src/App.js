@@ -124,7 +124,7 @@ import React, { useState } from 'react'
 //     {text}
 //   </button>
 //   )
-  
+
 // }
 
 // const App = () => {
@@ -160,6 +160,22 @@ import React, { useState } from 'react'
 
 // ********** DICE ROLLER
 
+const Button = ({ handleClick, text }) => {
+  return (
+    <button onClick={handleClick}>
+      {text}
+    </button>
+  )
+}
+
+const Display = ({ value }) => {
+  return (
+    <div>
+      {value}
+    </div>
+  )
+}
+
 
 const App = () => {
   const [value, setValue] = useState(10)
@@ -168,12 +184,14 @@ const App = () => {
     setValue(newValue)
   }
 
-  return(
+  return (
     <div>
-      {value}
-      <button onClick={() => {setToValue(1000)}}>thousand</button>
-      <button onClick={() => {setToValue(0)}}>reset</button>
-      <button onClick={() => {setToValue(value + 1)}}>add 1</button>
+      <Display value={value} />
+      <button onClick={() => { setToValue(1000) }}>thousand</button>
+      <button onClick={() => { setToValue(0) }}>reset</button>
+      <button onClick={() => { setToValue(value + 1) }}>add 1</button>
+      <Button handleClick={() => { setToValue(Math.ceil(Math.random() * 10)) }} text="D10" />
+      <Button handleClick={() => { setToValue(Math.ceil(Math.random() * 20)) }} text="D20" />
     </div>
   )
 }
