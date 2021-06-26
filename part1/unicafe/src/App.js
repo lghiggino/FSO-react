@@ -5,13 +5,19 @@ import './App.css';
 
 const CalcAverage = ({ good, bad, allVotes }) => {
   return (
-    <p>average: {good - bad / allVotes}</p>
+    <tr>
+      <th scope="row">average</th>
+      <td>{good - bad / allVotes}</td>
+    </tr>
   )
 }
 
 const CalcPosititve = ({ good, allVotes }) => {
   return (
-    <p>positives: {(good / allVotes) * 100}%</p>
+    <tr>
+      <th scope="row">positive</th>
+      <td>{(good / allVotes) * 100}%</td>
+    </tr>
   )
 }
 
@@ -25,16 +31,37 @@ const Statistics = ({ good, neutral, bad, allVotes }) => {
         </>
         :
         <>
-          <p>good: {good}</p>
-          <p>neutral: {neutral}</p>
-          <p>bad: {bad}</p>
-          <p>all: {allVotes}</p>
-          <CalcAverage good={good} bad={bad} allVotes={allVotes} />
-          <CalcPosititve good={good} allVotes={allVotes} />
+          <table>
+            <tbody>
+              <Statistic text={"good"} value={good} />
+              <Statistic text={"neutral"} value={neutral} />
+              <Statistic text={"bad"} value={bad} />
+              <Statistic text={"all"} value={allVotes} />
+              <CalcAverage good={good} bad={bad} allVotes={allVotes} />
+              <CalcPosititve good={good} allVotes={allVotes} />
+            </tbody>
+          </table>
+
         </>
       }
 
     </div>
+  )
+}
+
+const Statistic = ({ text, value }) => {
+  return (
+    <tr>
+      <th scope="row">{text}</th>
+      <td>{value}</td>
+    </tr>
+
+  )
+}
+
+const Button = ({ text, handleClick }) => {
+  return (
+    <button onClick={handleClick}>{text}</button>
   )
 }
 
@@ -63,9 +90,9 @@ function App() {
     <section className="App">
       <div>
         <h2>Give Feedback</h2>
-        <button onClick={handleGood}>good</button>
-        <button onClick={handleNeutral}>neutral</button>
-        <button onClick={handleBad}>bad</button>
+        <Button text={"good"} handleClick={handleGood} />
+        <Button text={"neutral"} handleClick={handleNeutral} />
+        <Button text={"bad"} handleClick={handleBad} />
       </div>
 
       <Statistics good={good} neutral={neutral} bad={bad} allVotes={allVotes} />
