@@ -1,6 +1,7 @@
-
 import { useState } from 'react';
 import './App.css';
+
+
 
 function App() {
   const anecdotes = [
@@ -14,41 +15,56 @@ function App() {
   ]
 
   const [selected, setSelected] = useState(0)
-  const [vote, setVote] = useState(
+  const [votes, setVotes] = useState(
     {
-      0:0,
-      1:0,
-      2:0,
-      3:0,
-      4:0,
-      5:0,
-      6:0,
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
     }
   )
+  const [maxVotes, setMaxvotes] = useState(0)
 
   const handleRandomization = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
   }
 
   const handleVote = () => {
-    console.log("clicked on vote", selected)
-    console.log(vote)
-    const copy = {...vote}
+    const copy = { ...votes }
     copy[selected] += 1
-    console.log(copy)
-    setVote(copy)
+    setVotes(copy)
+    const keys = Object.keys(votes);
+    let maxValue = 0
+    let maxKey = 0
+    keys.forEach((key) => {
+      if(copy[key]>maxValue){
+        maxValue = copy[key]
+        maxKey = key
+      }
+    });
+    setMaxvotes(maxKey)
   }
 
-  //AQUI TERMINOY 1.13 - anecdotes step2
+  
 
   return (
     <section className="App">
       <button onClick={handleRandomization}>Generate another anecdote</button>
       <button onClick={handleVote}>Upvote</button>
       <div>
-        {anecdotes[selected]}
+        <h2>Anecdotes </h2>
+        <p>{anecdotes[selected]}</p>
       </div>
-
+      <div>
+        <p>this anecdote has {votes[selected]} vote{votes[selected] !== 1 ? "s" : ""}.</p>
+      </div>
+      <div>
+        <h2>The anecdote with the most votes is:</h2>
+        <p>the most voted is: {anecdotes[maxVotes]}</p>
+      </div>
     </section>
   );
 }
