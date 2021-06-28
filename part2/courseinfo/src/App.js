@@ -1,27 +1,27 @@
 import React, { useState } from 'react'
-
+import './App.css';
 
 // **************COURSE CONTENT
-// const Header = ({course}) => {
-//   return(
+// const Header = ({ course }) => {
+//   return (
 //     <h1>{course}</h1>
 //   )
 // }
 
-// const Content = ({parts}) => {
-//   return(
+// const Content = ({ parts }) => {
+//   return (
 //     <>
 //       {parts.map(el => <p>{el.name}:  {el.exercises}</p>)}
 //     </>
 //   )
 // }
 
-// const Total = ({parts}) => {
+// const Total = ({ parts }) => {
 //   return (
 //     <>
-//     <p>Number of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
-//     <p>Number of exercises {parts.reduce((acc, curr) => (console.log("acc", acc.exercises, curr.exercises), 0))}</p>
-//     <p>{[1,2,3].reduce((acc,curr) => (acc + curr), 0)}</p>
+//       <p>Number of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
+//       <p>Number of exercises {parts.reduce((acc, curr) => (console.log("acc", acc.exercises, curr.exercises), 0))}</p>
+//       <p>{[1, 2, 3].reduce((acc, curr) => (acc + curr), 0)}</p>
 //     </>
 //   )
 // }
@@ -30,17 +30,17 @@ import React, { useState } from 'react'
 // const App = () => {
 //   const course = 'Half Stack application development'
 
-//     const parts = [
-//     { name: 'Fundamentals of React', exercises: 10},
-//     { name: 'Using props to pass data', exercises: 7},
+//   const parts = [
+//     { name: 'Fundamentals of React', exercises: 10 },
+//     { name: 'Using props to pass data', exercises: 7 },
 //     { name: 'State of a component', exercises: 14 }
 //   ]
 
 //   return (
 //     <div>
-//       <Header course={course}/>
-//       <Content parts = {parts}/>
-//       <Total parts={parts}/>
+//       <Header course={course} />
+//       <Content parts={parts} />
+//       <Total parts={parts} />
 //     </div>
 //   )
 // }
@@ -160,39 +160,56 @@ import React, { useState } from 'react'
 
 // ********** DICE ROLLER
 
-const Button = ({ handleClick, text }) => {
+// const Button = ({ handleClick, text }) => {
+//   return (
+//     <button onClick={handleClick}>
+//       {text}
+//     </button>
+//   )
+// }
+
+// const Display = ({ value }) => {
+//   return (
+//     <div>
+//       {value}
+//     </div>
+//   )
+// }
+
+
+// const App = () => {
+//   const [value, setValue] = useState(10)
+
+//   const setToValue = (newValue) => {
+//     setValue(newValue)
+//   }
+
+//   return (
+//     <div>
+//       <Display value={value} />
+//       <button onClick={() => { setToValue(1000) }}>thousand</button>
+//       <button onClick={() => { setToValue(0) }}>reset</button>
+//       <button onClick={() => { setToValue(value + 1) }}>add 1</button>
+//       <Button handleClick={() => { setToValue(Math.ceil(Math.random() * 10)) }} text="D10" />
+//       <Button handleClick={() => { setToValue(Math.ceil(Math.random() * 20)) }} text="D20" />
+//     </div>
+//   )
+// }
+
+// ****************NOTES - PART2 **************/
+
+import Note from './components/Note';
+
+const App = ({ notes }) => {
+
   return (
-    <button onClick={handleClick}>
-      {text}
-    </button>
-  )
-}
-
-const Display = ({ value }) => {
-  return (
-    <div>
-      {value}
-    </div>
-  )
-}
-
-
-const App = () => {
-  const [value, setValue] = useState(10)
-
-  const setToValue = (newValue) => {
-    setValue(newValue)
-  }
-
-  return (
-    <div>
-      <Display value={value} />
-      <button onClick={() => { setToValue(1000) }}>thousand</button>
-      <button onClick={() => { setToValue(0) }}>reset</button>
-      <button onClick={() => { setToValue(value + 1) }}>add 1</button>
-      <Button handleClick={() => { setToValue(Math.ceil(Math.random() * 10)) }} text="D10" />
-      <Button handleClick={() => { setToValue(Math.ceil(Math.random() * 20)) }} text="D20" />
-    </div>
+    <section className="App">
+      <ul>
+        {notes.map(note =>
+          <Note key={note.id} note={note} />
+        )}
+      </ul>
+    </section>
   )
 }
 
