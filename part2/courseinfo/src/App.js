@@ -1,47 +1,49 @@
 import React, { useState } from 'react'
 import './App.css';
 
-import Course from "./components/Course"
+
 
 // **************COURSE CONTENT
-const App = () => {
-  const courses = [
-    {
-      id: 1,
-      name: 'Half Stack application development',
-      parts: [
-        { name: 'Fundamentals of React', exercises: 10, id: 1 },
-        { name: 'Using props to pass data', exercises: 7, id: 2 },
-        { name: 'State of a component', exercises: 14, id: 3 },
-        { name: 'Redux', exercises: 11, id: 4 },
-      ]
-    },
-    {
-      id: 2,
-      name: 'Node.js',
-      parts: [
-        { name: 'Routing', exercises: 3, id: 1 },
-        { name: 'Middlewares', exercises: 7, id: 2 },
-      ]
-    },
-    {
-      id: 3,
-      name: 'Typescript',
-      parts: [
-        { name: 'What is it', exercises: 3, id: 1 },
-        { name: 'How to type your things', exercises: 12, id: 2 },
-      ]
-    }
-  ]
+//import Course from "./components/Course"
+//
+// const App = () => {
+//   const courses = [
+//     {
+//       id: 1,
+//       name: 'Half Stack application development',
+//       parts: [
+//         { name: 'Fundamentals of React', exercises: 10, id: 1 },
+//         { name: 'Using props to pass data', exercises: 7, id: 2 },
+//         { name: 'State of a component', exercises: 14, id: 3 },
+//         { name: 'Redux', exercises: 11, id: 4 },
+//       ]
+//     },
+//     {
+//       id: 2,
+//       name: 'Node.js',
+//       parts: [
+//         { name: 'Routing', exercises: 3, id: 1 },
+//         { name: 'Middlewares', exercises: 7, id: 2 },
+//       ]
+//     },
+//     {
+//       id: 3,
+//       name: 'Typescript',
+//       parts: [
+//         { name: 'What is it', exercises: 3, id: 1 },
+//         { name: 'How to type your things', exercises: 12, id: 2 },
+//       ]
+//     }
+//   ]
 
-  return (
-    <div>
-      {courses.map(course => (
-        <Course key={course.id} course={course} />
-      ))}
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       {courses.map(course => (
+//         <Course key={course.id} course={course} />
+//       ))}
+//     </div>
+//   )
+// }
 // ************END OF COURSE CONTENT
 
 //BORN YEAR
@@ -196,19 +198,55 @@ const App = () => {
 
 // ****************NOTES - PART2 **************/
 
-// import Note from './components/Note';
+import Note from './components/Note';
 
-// const App = ({ notes }) => {
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes)
+  const [newNote, setNewNote] = useState('a new note...')
+  const [showAll, setShowAll] = useState()
 
-//   return (
-//     <section className="App">
-//       <ul>
-//         {notes.map(note =>
-//           <Note key={note.id} note={note} />
-//         )}
-//       </ul>
-//     </section>
-//   )
-// }
+  const addNote = (event) => {
+    event.preventDefault()
+    const noteObject = {
+      content: newNote,
+      date: new Date().toISOString(),
+      important: Math.random() < 0.2,
+      id: notes.length + 1,
+    }
+
+    setNotes(notes.concat(noteObject))
+    setNewNote("")
+  }
+
+  const handleNoteChange = event => {
+    console.log(event.target.value)
+    setNewNote(event.target.value)
+  }
+
+  const notesToShow = showAll ? notes : notes.filter(note => note.important)
+
+  return (
+    <section className="App">
+      <h1>Notes</h1>
+      <div>
+        <button onClick={() => {setShowAll(!showAll)}}>
+          show {showAll ? 'only important notes' : 'all'}
+        </button>
+      </div>
+      <ul>
+        {notesToShow.map(note =>
+          <Note key={note.id} note={note} />
+        )}
+      </ul>
+      <form onSubmit={addNote}>
+        <input 
+        value={newNote}
+        onChange={handleNoteChange}
+        />
+        <button type="submit">save</button>
+      </form>
+    </section>
+  )
+}
 
 export default App
