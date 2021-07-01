@@ -1,25 +1,62 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
+// function App() {
+//   const [persons, setPersons] = useState([
+//     { name: "Arto Hellas" }
+//   ])
+//   const [newName, setNewName] = useState("")
+
+//   const handlePersonChange = (ev) => {
+//     console.log(ev.target.value)
+//   }
+
+//   const addPerson = (ev) => {
+//     ev.preventDefault()
+//     console.log("clicou em add", ev.target)
+//   }
+
+//   return (
+//     <div className="App">
+//       <h2>Phonebook</h2>
+//       <form onSubmit={addPerson}>
+//         <div>
+//           <label>name:</label>
+//           <input
+//             // onChange={handlePersonChange}
+
+//           />
+//         </div>
+//         <div>
+//           <button type="submit">add</button>
+//         </div>
+//         <div>
+//           debug: {newName}
+//         </div>
+//       </form>
+//       <h2>Numbers</h2>
+//       {persons.map(person => (
+//         <p key={person.name}>{person.name}</p>
+//       ))}
+//     </div>
+//   );
+
+const App = (props) => {
+  console.log(props)
+  const [notes, setNotes] = useState(props.notes)
+  console.log(notes)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {notes.map(note =>
+          <p key={note.id}>{note.text}</p>
+        )}
+      </ul>
     </div>
-  );
+  )
 }
+// }
 
 export default App;
