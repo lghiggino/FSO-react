@@ -6,29 +6,44 @@ function App() {
     { name: "Arto Hellas" }
   ])
   const [newName, setNewName] = useState("a new name...")
+  const [nameError, setNameError] = useState(false)
 
   const handlePersonChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewName(event.target.value)
   }
 
   const addPerson = (event) => {
     event.preventDefault()
-    console.log("clicou em add", event.target)
-    setPersons(persons.concat({"name": newName}))
+    // console.log("some", persons.some(el => el.name === newName))
+    if (persons.some(el => el.name === newName)){
+      setNameError(true)
+      setNewName("")
+      return
+    }
+    setPersons(persons.concat({ "name": newName }))
     setNewName("")
+    setNameError(false)
   }
+
 
   return (
     <div className="App">
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
-          <label>name:</label>
-          <input value={newName} onChange={handlePersonChange}/>
-          <button type="submit">add</button>
-          debug: {newName}
+        <label>name:</label>
+        <input value={newName} onChange={handlePersonChange} />
+        <button type="submit">add</button>
+        debug: {newName}
       </form>
-      <h2>Numbers</h2>
+
+      {nameError &&
+        <div>
+          <p>Error: Name already exists on the list</p>
+        </div>
+      }
+
+      <h2>Names</h2>
       {persons.map(person => (
         <p key={person.name}>{person.name}</p>
       ))}
