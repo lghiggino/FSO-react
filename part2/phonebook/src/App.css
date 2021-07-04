@@ -38,3 +38,11 @@
     transform: rotate(360deg);
   }
 }
+
+form {
+  outline: 1px solid #f5f5f5
+}
+
+form > * {
+  margin: 1rem 0.5rem;
+}

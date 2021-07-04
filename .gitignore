@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-
+part0/node_modules
+part1/node_modules
+part2/node_modules
+part3/node_modules
+part4/node_modules

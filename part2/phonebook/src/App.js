@@ -3,51 +3,111 @@ import './App.css';
 
 function App() {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas" }
+    { id: 0, name: "Arto Hellas", phone: "(21) 9 9999 0222" },
+    { id: 1, name: "Ada Lovelace", phone: "39-445323523" },
+    { id: 2, name: "Dan Abramov", phone: "12-43-234345" }
   ])
-  const [newName, setNewName] = useState("a new name...")
+  const [newName, setNewName] = useState("")
   const [nameError, setNameError] = useState(false)
+  const [wrongName, setWrongName] = useState("")
+  const [newPhone, setNewPhone] = useState("")
 
   const handlePersonChange = (event) => {
-    // console.log(event.target.value)
     setNewName(event.target.value)
+  }
+
+  const handlePhoneChange = (event) => {
+    setNewPhone(event.target.value)
   }
 
   const addPerson = (event) => {
     event.preventDefault()
     // console.log("some", persons.some(el => el.name === newName))
-    if (persons.some(el => el.name === newName)){
+    if (persons.some(el => el.name === newName)) {
       setNameError(true)
+      setWrongName(newName)
       setNewName("")
       return
     }
-    setPersons(persons.concat({ "name": newName }))
+    const fullPersonData = {
+      "id": persons.length,
+      "name": newName,
+      "phone": newPhone
+    }
+    setPersons(persons.concat(fullPersonData))
     setNewName("")
+    setNewPhone("")
     setNameError(false)
   }
 
+  const [searchName, setSearchName] = useState("")
+  const [filteredPersonsArray, setFilteredPersonsArray] = useState([])
+  const [filterError, setFilterError] = useState(false)
+  const [showAll, setShowAll] = useState(true)
+
+  const handleSearchNameChange = (event) => {
+    setSearchName(event.target.value)
+  }
+
+  const filterPerson = (event) => {
+    event.preventDefault()
+    console.log(searchName)
+    const filteredArray = persons.filter(el => el.name === searchName)
+    if (filteredArray.length > 0) {
+      setFilteredPersonsArray(filteredArray)
+      setShowAll(false)
+    } else {
+      setFilterError(true)
+    }
+    setSearchName("")
+  }
+
+  const namesToShow = showAll ? persons : persons.filter(el => el.name === searchName)
 
   return (
     <div className="App">
       <h2>Phonebook</h2>
+      <form onSubmit={filterPerson}>
+        <label>enter a person name:</label>
+        <input value={searchName} onChange={handleSearchNameChange} placeholder={"type a person name"} />
+        <button type="submit">search</button>
+      </form>
+
       <form onSubmit={addPerson}>
         <label>name:</label>
-        <input value={newName} onChange={handlePersonChange} />
+        <input value={newName} onChange={handlePersonChange} placeholder={"a new name..."} />
+        <input value={newPhone} onChange={handlePhoneChange} placeholder={"add phone number"} />
         <button type="submit">add</button>
-        debug: {newName}
       </form>
 
       {nameError &&
         <div>
-          <p>Error: Name already exists on the list</p>
+          <p>Error: {wrongName} already exists on the list</p>
+        </div>
+      }
+
+      {filterError &&
+        <div>
+          <p>Error: There was no match for the search query</p>
         </div>
       }
 
       <h2>Names</h2>
       {persons.map(person => (
-        <p key={person.name}>{person.name}</p>
+        <p key={person.name}>{person.name} {person.phone}</p>
+      ))}
+
+      <h2>Filtered</h2>
+      {filteredPersonsArray.map(person => (
+        <p key={person.name}>{person.name} {person.phone}</p>
+      ))}
+
+      <h2>teste</h2>
+      {namesToShow.map(person => (
+        <p key={person.name}>{person.name} {person.phone}</p>
       ))}
     </div>
+
   );
 }
 
