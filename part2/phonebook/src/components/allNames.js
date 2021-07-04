@@ -1,4 +1,4 @@
-export default function allNames({ persons, nameError, wrongName  }) {
+export default function AllNames({ persons, nameError, wrongName  }) {
     return (
         <>
             <h2>Names</h2>

@@ -1,4 +1,4 @@
-export default function filteredNames({filterError, filteredPersonsArray}) {
+export default function FilteredNames({filterError, filteredPersonsArray}) {
     return (
         <>
             <h2>Filtered</h2>
