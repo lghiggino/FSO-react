@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 
+import AllNames from "./components/allNames"
+import FilteredNames from './components/filteredNames';
+
 function App() {
   const [persons, setPersons] = useState([
     { id: 0, name: "Arto Hellas", phone: "(21) 9 9999 0222" },
@@ -27,6 +30,7 @@ function App() {
       setNameError(true)
       setWrongName(newName)
       setNewName("")
+      setNewPhone("")
       return
     }
     const fullPersonData = {
@@ -52,62 +56,46 @@ function App() {
   const filterPerson = (event) => {
     event.preventDefault()
     console.log(searchName)
-    const filteredArray = persons.filter(el => el.name === searchName)
+    const filteredArray = persons.filter(el => el.name.toLowerCase() === searchName.toLowerCase())
     if (filteredArray.length > 0) {
       setFilteredPersonsArray(filteredArray)
       setShowAll(false)
+      setFilterError(false)
     } else {
       setFilterError(true)
+      setShowAll(true)
     }
     setSearchName("")
   }
 
-  const namesToShow = showAll ? persons : persons.filter(el => el.name === searchName)
+  const namesToShow = showAll ? persons : persons.filter(el => el.name.toLowerCase() === searchName.toLowerCase())
 
   return (
     <div className="App">
       <h2>Phonebook</h2>
-      <form onSubmit={filterPerson}>
-        <label>enter a person name:</label>
-        <input value={searchName} onChange={handleSearchNameChange} placeholder={"type a person name"} />
-        <button type="submit">search</button>
-      </form>
 
       <form onSubmit={addPerson}>
-        <label>name:</label>
+        <label>Add a new Person:</label>
         <input value={newName} onChange={handlePersonChange} placeholder={"a new name..."} />
         <input value={newPhone} onChange={handlePhoneChange} placeholder={"add phone number"} />
         <button type="submit">add</button>
       </form>
+      
+      <form onSubmit={filterPerson}>
+        <label>Search person:</label>
+        <input value={searchName} onChange={handleSearchNameChange} placeholder={"type a person name"} />
+        <button type="submit">search</button>
+      </form>
 
-      {nameError &&
-        <div>
-          <p>Error: {wrongName} already exists on the list</p>
-        </div>
-      }
+      
 
-      {filterError &&
-        <div>
-          <p>Error: There was no match for the search query</p>
-        </div>
-      }
+      <AllNames persons={persons} nameError={nameError} wrongName={wrongName} />
 
-      <h2>Names</h2>
-      {persons.map(person => (
-        <p key={person.name}>{person.name} {person.phone}</p>
-      ))}
+      <FilteredNames filteredPersonsArray={filteredPersonsArray} filterError={filterError}/>
+      
+      
 
-      <h2>Filtered</h2>
-      {filteredPersonsArray.map(person => (
-        <p key={person.name}>{person.name} {person.phone}</p>
-      ))}
-
-      <h2>teste</h2>
-      {namesToShow.map(person => (
-        <p key={person.name}>{person.name} {person.phone}</p>
-      ))}
     </div>
-
   );
 }
 
