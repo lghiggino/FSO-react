@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 
-import AllNames from "./components/allNames"
-import FilteredNames from './components/filteredNames';
-import FilterForm from "./components/filterForm";
-import AddPersonForm from './components/addPersonForm';
+import AllNames from "./components/AllNames"
+import FilteredNames from './components/FilteredNames';
+import FilterForm from "./components/FilterForm";
+import AddPersonForm from './components/AddPersonForm';
 
 function App() {
   const [persons, setPersons] = useState([
