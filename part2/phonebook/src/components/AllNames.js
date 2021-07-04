@@ -1,4 +1,4 @@
-export default function AllNames({ persons, nameError, wrongName  }) {
+export default function AllNames({ persons, nameError, wrongName }) {
     return (
         <>
             <h2>Names</h2>
@@ -8,9 +8,12 @@ export default function AllNames({ persons, nameError, wrongName  }) {
                 </div>
             }
             {persons.map(person => (
-                <p key={person.name}>{person.name} {person.phone}</p>
+                <div key={person.id}>
+                    <span> {person.name}: </span>
+                    <span> {person.phone}</span>
+                </div>
             ))}
-            
+
         </>
     )
 }

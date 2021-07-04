@@ -50,5 +50,8 @@ form > * {
 
 form > button {
   padding: 0.0875rem 1.75rem;
+}
 
+.personName{
+  color: red
 }
