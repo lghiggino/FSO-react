@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios"
 import './App.css';
 
-import AllNames from "./components/AllNames"
-import FilteredNames from './components/FilteredNames';
-import FilterForm from "./components/FilterForm";
-import AddPersonForm from './components/AddPersonForm';
+
+
+/* PHONEBOOK */
+// import AllNames from "./components/AllNames"
+// import FilteredNames from './components/FilteredNames';
+// import FilterForm from "./components/FilterForm";
+// import AddPersonForm from './components/AddPersonForm';
 
 // function App() {
 //   const [persons, setPersons] = useState([
@@ -12,6 +16,7 @@ import AddPersonForm from './components/AddPersonForm';
 //     { id: 1, name: "Ada Lovelace", phone: "39-445323523" },
 //     { id: 2, name: "Dan Abramov", phone: "12-43-234345" }
 //   ])
+
 //   const [newName, setNewName] = useState("")
 //   const [nameError, setNameError] = useState(false)
 //   const [wrongName, setWrongName] = useState("")
@@ -62,13 +67,24 @@ import AddPersonForm from './components/AddPersonForm';
 
 
 /* NOTES */
-
 import Note from './components/Note';
 
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes)
+function App() {
+  const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState("")
   const [showAll, setShowAll] = useState(true)
+
+  useEffect(() => {
+    console.log("effect")
+    axios
+      .get("http://localhost:3001/notes")
+      .then(response => {
+        console.log(!"promise fulfilled")
+        setNotes(response.data)
+      })
+  }, [])
+
+  console.log("render", notes.length, "notes")
 
   const addNote = (event) => {
     event.preventDefault()
@@ -94,22 +110,22 @@ const App = (props) => {
     <div className="App">
       <h1>Notes</h1>
       <div>
-        <button onClick={ () => {setShowAll(!showAll)} }>
-          show {showAll? "important" : "all"}
+        <button onClick={() => { setShowAll(!showAll) }}>
+          show {showAll ? "important" : "all"}
         </button>
       </div>
-        <ul>
-          {notesToShow.map(note =>
-            <Note key={note.id} note={note} />)}
-        </ul>
-        <form onSubmit={addNote}>
-          <input value={newNote} onChange={handleNoteChange} placeholder={"A new note..."} />
-          <button type="submit">save note</button>
-        </form>
+      <ul>
+        {notesToShow.map(note =>
+          <Note key={note.id} note={note} />)}
+      </ul>
+      <form onSubmit={addNote}>
+        <input value={newNote} onChange={handleNoteChange} placeholder={"A new note..."} />
+        <button type="submit">save note</button>
+      </form>
 
-      </div>
-      )
+    </div>
+  )
 }
 
 
-      export default App;
+export default App;

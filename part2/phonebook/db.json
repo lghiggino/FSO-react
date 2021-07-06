@@ -23,7 +23,14 @@
             "content": "Fundamentals of React",
             "date": "2021-07-05T19:20:31.298z",
             "important": true
+        },
+        {
+            "id": 5,
+            "content": "Banana",
+            "date": "2021-07-05T19:20:31.298z",
+            "important": true
         }
+
     ],
     "fruits": [
         {
