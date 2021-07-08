@@ -12,17 +12,19 @@ function App() {
   const [error, setError] = useState(false)
   const [details, setDetails] = useState(false)
   const [weather, setWeather] = useState(null)
+  const [weatherDetails, setWeatherDetails] = useState(false)
 
-  function getCountries() {
-    axios.get("https://restcountries.eu/rest/v2/all").then(response => {
+  async function getCountries() {
+    await axios.get("https://restcountries.eu/rest/v2/all").then(response => {
       setCountries(response.data)
     })
   }
 
-  function getWeather(capitalCity) {
+  async function getWeather(capitalCity) {
     if (!capitalCity) { return }
-    axios.get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${capitalCity}`).then(response => {
+    await axios.get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${capitalCity}`).then(response => {
       setWeather(response.data)
+      setWeatherDetails(true)
       console.log(response.data)
     })
   }
@@ -47,14 +49,17 @@ function App() {
     if (filteredArray.length > 1) {
       setDetails(false)
       setError(false)
+      setWeatherDetails(false)
     }
 
     if (filteredArray.length === 0) {
       setError(true)
       setDetails(false)
+      setWeatherDetails(false)
     }
 
     if (filteredArray.length === 1) {
+      getWeather(filteredArray[0].capital)
       setDetails(true)
       setError(false)
     }
@@ -90,9 +95,13 @@ function App() {
           ))}
           <img className="image" src={el.flag} alt={`${el.name}-flag`} />
           <p>{el.region} - {el.subregion}</p>
-          {/* <h4>Weather</h4>
-          <p>current temperature: {weather.current.temperature}C</p>
-          <p>{weather.current.weather_descriptions[0]}</p> */}
+          {weatherDetails &&
+            <>
+              <h4>Weather</h4>
+              <p>Current temperature: {weather.current.temperature} C</p>
+              <p>Description: {weather.current.weather_descriptions[0]}</p>
+            </>
+          }
         </div>
       ))
       }
