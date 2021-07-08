@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import './App.css';
+const api_key = process.env.REACT_APP_WEATHERSTACK_API_KEY
+
+console.log(api_key)
 
 function App() {
   const [countries, setCountries] = useState([])
@@ -8,10 +11,19 @@ function App() {
   const [filteredCountries, setFilteredCountries] = useState([])
   const [error, setError] = useState(false)
   const [details, setDetails] = useState(false)
+  const [weather, setWeather] = useState(null)
 
   function getCountries() {
     axios.get("https://restcountries.eu/rest/v2/all").then(response => {
       setCountries(response.data)
+    })
+  }
+
+  function getWeather(capitalCity) {
+    if (!capitalCity) { return }
+    axios.get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${capitalCity}`).then(response => {
+      setWeather(response.data)
+      console.log(response.data)
     })
   }
 
@@ -28,7 +40,7 @@ function App() {
       setError(false)
     }
 
-    const filteredArray = countries.filter(el => el.name.indexOf(data) != -1)
+    const filteredArray = countries.filter(el => el.name.indexOf(data) !== -1)
     setFilterOn(true)
     setFilteredCountries(filteredArray)
 
@@ -70,14 +82,17 @@ function App() {
           <p>capital: {el.capital}</p>
           <p>population: {el.population}</p>
           <p>area: {el.area}km²</p>
-          <h4>languages</h4>
+          <h4>Languages</h4>
           {el.languages.map(lang => (
-            <div key={lang.name} class="mbHalfRem">
-              <span>{lang.name}</span>
+            <div key={lang.name}>
+              <span class="mbHalfRem">{lang.name}</span>
             </div>
           ))}
-          <img className="image" src={el.flag} alt={`${el.name}-flag`}/>
+          <img className="image" src={el.flag} alt={`${el.name}-flag`} />
           <p>{el.region} - {el.subregion}</p>
+          {/* <h4>Weather</h4>
+          <p>current temperature: {weather.current.temperature}C</p>
+          <p>{weather.current.weather_descriptions[0]}</p> */}
         </div>
       ))
       }
