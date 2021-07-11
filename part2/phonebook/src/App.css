@@ -57,8 +57,13 @@ form > button {
 }
 
 .noteLi{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr;
+}
+
+.noteLiBold{
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr;
+  font-weight: bold;
 }
 

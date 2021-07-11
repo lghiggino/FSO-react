@@ -113,7 +113,19 @@ function App() {
     axios.put(url, changeNote).then(response => {
       setNotes(notes.map(note => note.id !== id ? note : response.data))
     })
-    
+  }
+
+  async function updateDateOf (id) {
+    const url = `http://localhost:3001/notes/${id}`
+    const note = notes.find(n => n.id === id)
+    const newDate = new Date().toISOString()
+    const changedNote = { ...note}
+    changedNote.date = newDate
+    console.log(note, changedNote)
+
+    await axios.put(url, changedNote).then(response => {
+      setNotes(notes.map(note => note.id !== id ? note : response.data))
+    })
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
@@ -132,6 +144,7 @@ function App() {
             key={note.id}
             note={note}
             toggleImportance={() => toggleImportanceOf(note.id)}
+            updateDate={() => updateDateOf(note.id)}
           />)}
       </ul>
       <form onSubmit={addNote}>
