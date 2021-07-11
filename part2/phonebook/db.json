@@ -25,10 +25,10 @@
       "important": true
     },
     {
-      "id": 5,
-      "content": "Banana",
-      "date": "2021-07-05T19:20:31.298z",
-      "important": false
+      "content": "JSON server is very useful",
+      "date": "2021-07-11T11:16:50.439Z",
+      "important": false,
+      "id": 5
     },
     {
       "content": "this is a test note",
@@ -47,25 +47,7 @@
       "date": "2021-07-09T00:04:37.983Z",
       "important": false,
       "id": 8
-    },
-    {
-      "content": "Desktop or laptop",
-      "date": "2021-07-09T00:05:26.919Z",
-      "important": false,
-      "id": 9
-    },
-    {
-      "content": "teste",
-      "date": "2021-07-09T00:06:14.143Z",
-      "important": false,
-      "id": 10
-    },
-    {
-      "content": "123 456  789",
-      "date": "2021-07-09T00:08:48.096Z",
-      "important": false,
-      "id": 11
-    }
+    }    
   ],
   "fruits": [
     {

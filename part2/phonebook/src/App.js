@@ -91,11 +91,11 @@ function App() {
     const noteObject = {
       content: newNote,
       date: new Date().toISOString(),
-      important: Math.random() < 0.3,
+      important: Math.random() < 0.4,
       // id: notes.length + 1
     }
     axios.post("http://localhost:3001/notes", noteObject).then(response => {
-      console.log(response)
+      console.log("response", response)
       setNotes(notes.concat(response.data))
       setNewNote("")
     })
