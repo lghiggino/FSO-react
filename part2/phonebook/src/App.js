@@ -128,6 +128,16 @@ function App() {
     })
   }
 
+  async function removeNote (id){
+    console.log(`remove note ${id}`)
+    const url = `http://localhost:3001/notes/${id}`
+    const note = notes.find(n => n.id === id)
+
+    // await axios.delete(url, note).then(response => {
+    //   setNotes(notes.)
+    // })
+  }
+
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
   return (
@@ -145,6 +155,7 @@ function App() {
             note={note}
             toggleImportance={() => toggleImportanceOf(note.id)}
             updateDate={() => updateDateOf(note.id)}
+            removeNote={() => removeNote(note.id)}
           />)}
       </ul>
       <form onSubmit={addNote}>
