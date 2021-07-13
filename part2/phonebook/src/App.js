@@ -74,16 +74,16 @@ function App() {
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
-    console.log("effect")
+    loadNotes()
+  }, [])
+
+  function loadNotes() {
     axios
       .get("http://localhost:3001/notes")
       .then(response => {
-        console.log("promise fulfilled")
         setNotes(response.data)
       })
-  }, [])
-
-  console.log("render", notes.length, "notes")
+  }
 
   const addNote = (event) => {
     event.preventDefault()
@@ -115,27 +115,25 @@ function App() {
     })
   }
 
-  async function updateDateOf (id) {
+  async function updateDateOf(id) {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
     const newDate = new Date().toISOString()
-    const changedNote = { ...note}
+    const changedNote = { ...note }
     changedNote.date = newDate
-    console.log(note, changedNote)
 
     await axios.put(url, changedNote).then(response => {
       setNotes(notes.map(note => note.id !== id ? note : response.data))
     })
   }
 
-  async function removeNote (id){
+  async function removeNote(id) {
     console.log(`remove note ${id}`)
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
 
-    // await axios.delete(url, note).then(response => {
-    //   setNotes(notes.)
-    // })
+    await axios.delete(url, note)
+    loadNotes()
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
