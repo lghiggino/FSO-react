@@ -88,7 +88,6 @@ function App() {
 
   const addNote = (event) => {
     event.preventDefault()
-    console.log("save note button was clicked", event.target)
     const noteObject = {
       content: newNote,
       date: new Date().toISOString(),
@@ -97,11 +96,9 @@ function App() {
     }
 
     noteService.create(noteObject).then(response => {
-      console.log("response", response)
       setNotes(notes.concat(response.data))
       setNewNote("")
     })
-
   }
 
   const handleNoteChange = (event) => {
@@ -136,9 +133,9 @@ function App() {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
 
-    noteService.remove(id, note)
-    noteService.getAll()
-    // loadNotes()
+    await noteService.remove(id, note)
+    loadNotes()
+    
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)

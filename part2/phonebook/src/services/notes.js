@@ -18,7 +18,8 @@ const updateDate = (id, newObject) => {
 }
 
 const remove = (id, removedObject) => {
-    return axios.delete(`${baseUrl}/${id}`, removedObject)
+    axios.delete(`${baseUrl}/${id}`, removedObject)
+    return axios.get(baseUrl)
 }
 
 export default {
