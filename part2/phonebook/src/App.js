@@ -76,7 +76,7 @@ function App() {
 
   useEffect(() => {
     loadNotes()
-  }, [notes])
+  }, [])
 
   function loadNotes() {
     axios
@@ -136,8 +136,8 @@ function App() {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
 
-    noteService.remove(id).then(loadNotes())
-
+    noteService.remove(id, note)
+    noteService.getAll()
     // loadNotes()
   }
 
