@@ -67,6 +67,7 @@ import './App.css';
 
 /* NOTES */
 import Note from './components/Note';
+import noteService from "./services/notes"
 
 function App() {
   const [notes, setNotes] = useState([])
@@ -74,7 +75,10 @@ function App() {
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
-    loadNotes()
+    // loadNotes()
+    noteService.getAll().then(response => {
+      setNotes(response.data)
+    })
   }, [])
 
   function loadNotes() {
@@ -108,9 +112,9 @@ function App() {
   const toggleImportanceOf = (id) => {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
-    const changeNote = { ...note, important: !note.important }
+    const changedNote = { ...note, important: !note.important }
 
-    axios.put(url, changeNote).then(response => {
+    noteService.updateImportance(id, changedNote).then(response => {
       setNotes(notes.map(note => note.id !== id ? note : response.data))
     })
   }
@@ -122,9 +126,10 @@ function App() {
     const changedNote = { ...note }
     changedNote.date = newDate
 
-    await axios.put(url, changedNote).then(response => {
+    noteService.updateDate(id, changedNote).then(response => {
       setNotes(notes.map(note => note.id !== id ? note : response.data))
     })
+
   }
 
   async function removeNote(id) {
@@ -132,8 +137,10 @@ function App() {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
 
-    await axios.delete(url, note)
-    loadNotes()
+    noteService.remove(id, note)
+
+    // await axios.delete(url, note)
+    noteService.getAll()
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
