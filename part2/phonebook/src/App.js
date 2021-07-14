@@ -75,11 +75,8 @@ function App() {
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
-    // loadNotes()
-    noteService.getAll().then(response => {
-      setNotes(response.data)
-    })
-  }, [])
+    loadNotes()
+  }, [notes])
 
   function loadNotes() {
     axios
@@ -98,11 +95,13 @@ function App() {
       important: Math.random() < 0.4,
       // id: notes.length + 1
     }
-    axios.post("http://localhost:3001/notes", noteObject).then(response => {
+
+    noteService.create(noteObject).then(response => {
       console.log("response", response)
       setNotes(notes.concat(response.data))
       setNewNote("")
     })
+
   }
 
   const handleNoteChange = (event) => {
@@ -137,10 +136,9 @@ function App() {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
 
-    noteService.remove(id, note)
+    noteService.remove(id).then(loadNotes())
 
-    // await axios.delete(url, note)
-    noteService.getAll()
+    // loadNotes()
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)

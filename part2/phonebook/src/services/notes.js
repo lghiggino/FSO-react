@@ -17,8 +17,8 @@ const updateDate = (id, newObject) => {
     return axios.put(`${baseUrl}/${id}`, newObject)
 }
 
-const remove = (id, removedObject) => {
-    return axios.delete(`${baseUrl}/${id}`, removedObject)
+const remove = (id) => {
+    return axios.delete(`${baseUrl}/${id}`)
 }
 
 export default {
