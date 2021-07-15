@@ -22,6 +22,4 @@ const remove = (id, removedObject) => {
     return axios.get(baseUrl)
 }
 
-export default {
-    getAll, create, updateImportance, updateDate, remove
-}
+export default { getAll, create, updateImportance, updateDate, remove }

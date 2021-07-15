@@ -79,9 +79,7 @@ function App() {
   }, [])
 
   function loadNotes() {
-    axios
-      .get("http://localhost:3001/notes")
-      .then(response => {
+    noteService.getAll().then(response => {
         setNotes(response.data)
       })
   }
