@@ -82,6 +82,9 @@ function App() {
     noteService.getAll().then(responseNotes => {
       setNotes(responseNotes)
     })
+      .catch(error => {
+        console.log("Failed to Load Notes", error)
+      })
   }
 
   const addNote = (event) => {
@@ -97,6 +100,9 @@ function App() {
       setNotes(notes.concat(responseNote))
       setNewNote("")
     })
+      .catch(error => {
+        console.log("Failed to Create New Note", error)
+      })
   }
 
   const handleNoteChange = (event) => {
@@ -110,6 +116,9 @@ function App() {
     noteService.updateImportance(id, changedNote).then(responseNote => {
       setNotes(notes.map(note => note.id !== id ? note : responseNote))
     })
+      .catch(error => {
+        console.log("Failed to Update Importance", error)
+      })
   }
 
   async function updateDateOf(id) {
@@ -121,14 +130,21 @@ function App() {
     noteService.updateDate(id, changedNote).then(responseNote => {
       setNotes(notes.map(note => note.id !== id ? note : responseNote))
     })
+      .catch(error => {
+        console.log("Failed to Update Date", error)
+      })
 
   }
 
   async function removeNote(id) {
     const note = notes.find(n => n.id === id)
 
-    await noteService.remove(id, note)
-    loadNotes()
+    await noteService.remove(id, note).then(
+      loadNotes()
+    ).catch(error => {
+      console.log("Failed to Delete note", error)
+    })
+
 
   }
 
