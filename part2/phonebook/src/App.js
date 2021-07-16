@@ -78,10 +78,10 @@ function App() {
     loadNotes()
   }, [])
 
-  function loadNotes() {
-    noteService.getAll().then(response => {
-        setNotes(response.data)
-      })
+  async function loadNotes() {
+    noteService.getAll().then(responseNotes => {
+      setNotes(responseNotes)
+    })
   }
 
   const addNote = (event) => {
@@ -93,8 +93,8 @@ function App() {
       // id: notes.length + 1
     }
 
-    noteService.create(noteObject).then(response => {
-      setNotes(notes.concat(response.data))
+    noteService.create(noteObject).then(responseNote => {
+      setNotes(notes.concat(responseNote))
       setNewNote("")
     })
   }
@@ -104,36 +104,32 @@ function App() {
   }
 
   const toggleImportanceOf = (id) => {
-    const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
 
-    noteService.updateImportance(id, changedNote).then(response => {
-      setNotes(notes.map(note => note.id !== id ? note : response.data))
+    noteService.updateImportance(id, changedNote).then(responseNote => {
+      setNotes(notes.map(note => note.id !== id ? note : responseNote))
     })
   }
 
   async function updateDateOf(id) {
-    const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
     const newDate = new Date().toISOString()
     const changedNote = { ...note }
     changedNote.date = newDate
 
-    noteService.updateDate(id, changedNote).then(response => {
-      setNotes(notes.map(note => note.id !== id ? note : response.data))
+    noteService.updateDate(id, changedNote).then(responseNote => {
+      setNotes(notes.map(note => note.id !== id ? note : responseNote))
     })
 
   }
 
   async function removeNote(id) {
-    console.log(`remove note ${id}`)
-    const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
 
     await noteService.remove(id, note)
     loadNotes()
-    
+
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
