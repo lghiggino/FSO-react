@@ -16,6 +16,7 @@ function App() {
 
   const [newName, setNewName] = useState("")
   const [nameError, setNameError] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [wrongName, setWrongName] = useState("")
   const [newPhone, setNewPhone] = useState("")
   const [searchName, setSearchName] = useState("")
@@ -44,6 +45,7 @@ function App() {
         setNameError={setNameError}
         setWrongName={setWrongName}
         setNewPhone={setNewPhone}
+        setSuccess={setSuccess}
       />
 
       <FilterForm
@@ -58,7 +60,7 @@ function App() {
         setShowAll={setShowAll}
       />
 
-      <AllNames persons={persons} nameError={nameError} wrongName={wrongName} setPersons={setPersons} />
+      <AllNames persons={persons} nameError={nameError} wrongName={wrongName} setPersons={setPersons} success={success} />
 
       <FilteredNames filteredPersonsArray={filteredPersonsArray} filterError={filterError} setPersons={setPersons}/>
 

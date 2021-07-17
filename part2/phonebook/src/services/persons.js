@@ -26,4 +26,4 @@ async function remove(id) {
     return await axios.get(baseUrl)
 }
 
-export default { getAll, create, remove }
+export default { getAll, create, updateNumber, remove }

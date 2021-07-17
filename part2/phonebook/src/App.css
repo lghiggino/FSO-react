@@ -77,3 +77,8 @@ form > button {
   font-weight: bold;
   color: #bd3f3f
 }
+
+.success{
+  font-weight: bold;
+  color: #3fbd3f
+}

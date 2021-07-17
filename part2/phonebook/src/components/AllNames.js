@@ -1,12 +1,17 @@
 import PersonLi from "./PersonLi"
 
-export default function AllNames({ persons, nameError, wrongName, setPersons }) {
+export default function AllNames({ persons, nameError, wrongName, setPersons, success }) {
     return (
         <>
             <h2>Names</h2>
+            {success &&
+                <div>
+                    <p className={"success"}> Number changed successfully</p>
+                </div>
+            }
             {nameError &&
                 <div>
-                    <p className={"error"}>Error: {wrongName} already exists on the list</p>
+                    <p className={"error"}>{wrongName}'s number was not changed</p>
                 </div>
             }
             <ul>
