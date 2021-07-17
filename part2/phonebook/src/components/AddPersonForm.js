@@ -14,11 +14,30 @@ export default function AddPersonForm({ persons, newName, newPhone, setPersons, 
     const addPerson = (event) => {
         event.preventDefault()
         if (persons.some(el => el.name === newName)) {
-            setNameError(true)
-            setWrongName(newName)
-            setNewName("")
-            setNewPhone("")
-            return
+            let numberSubstitution = window.confirm(`${newName} is already in the phone book. Replace the old number with ${newPhone}? - CHANGE STUFF HERE`)
+            console.log(numberSubstitution)
+            if (numberSubstitution) {
+                alert("number changed successfully")
+                //   const toggleImportanceOf = (id) => {
+                //     const note = notes.find(n => n.id === id)
+                //     const changedNote = { ...note, important: !note.important }
+
+                //     noteService.updateImportance(id, changedNote).then(responseNote => {
+                //       setNotes(notes.map(note => note.id !== id ? note : responseNote))
+                //     })
+                //       .catch(error => {
+                //         console.log("Failed to Update Importance", error)
+                //       })
+                //   }
+            }
+            else {
+                setNameError(true)
+                setWrongName(newName)
+                setNewName("")
+                setNewPhone("")
+                return
+            }
+
         }
         const fullPersonData = {
             "name": newName,

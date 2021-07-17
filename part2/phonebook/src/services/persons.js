@@ -11,10 +11,10 @@ const create = newObject => {
     // request.then(response => response.data)
 }
 
-// const updateImportance = (id, newObject) => {
-//     return  axios.put(`${baseUrl}/${id}`, newObject)
-//     // request.then(response => response.data)
-// }
+const updateNumber = (id, newObject) => {
+    return  axios.put(`${baseUrl}/${id}`, newObject)
+    // request.then(response => response.data)
+}
 
 // const updateDate = (id, newObject) => {
 //     return  axios.put(`${baseUrl}/${id}`, newObject)
