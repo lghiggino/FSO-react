@@ -1,18 +1,20 @@
-export default function FilteredNames({filterError, filteredPersonsArray}) {
+import PersonLi from "./PersonLi"
+
+export default function FilteredNames({ filterError, filteredPersonsArray, setPersons }) {
     return (
         <>
             <h2>Filtered</h2>
             {filterError &&
                 <div>
-                    <p>Error: There was no match for the search query</p>
+                    <p className={"error"}>Error: There was no match for the search query</p>
                 </div>
             }
-            {filteredPersonsArray.map(person => (
-                <div key={person.id}>
-                <span> {person.name}:  </span>
-                <span> {person.phone}</span>
-                </div>
-            ))}
+            <ul>
+                {filteredPersonsArray.map(person => (
+                    <PersonLi key={person.id} person={person} setPersons={setPersons} />
+                    // <li key={person.id} className={"personLi"}> {person.name}: {person.number} <button>remove</button> </li>
+                ))}
+            </ul>
         </>
     )
 }

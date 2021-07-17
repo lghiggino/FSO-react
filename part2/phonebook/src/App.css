@@ -52,18 +52,28 @@ form > button {
   padding: 0.0875rem 1.75rem;
 }
 
-.personName{
-  color: red
+.personName {
+  color: red;
 }
 
-.noteLi{
+.noteLi {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
 }
 
-.noteLiBold{
+.noteLiBold,
+.personLiBold {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
   font-weight: bold;
 }
 
+.personLi {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+}
+
+.error{
+  font-weight: bold;
+  color: #bd3f3f
+}

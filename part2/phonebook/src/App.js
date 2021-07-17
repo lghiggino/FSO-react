@@ -9,6 +9,8 @@ import FilteredNames from './components/FilteredNames';
 import FilterForm from "./components/FilterForm";
 import AddPersonForm from './components/AddPersonForm';
 
+import personService from "./services/persons"
+
 function App() {
   const [persons, setPersons] = useState([])
 
@@ -22,7 +24,7 @@ function App() {
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then(response => {
+    personService.getAll().then(response => {
       setPersons(response.data)
     })
   }, [])
@@ -56,9 +58,9 @@ function App() {
         setShowAll={setShowAll}
       />
 
-      <AllNames persons={persons} nameError={nameError} wrongName={wrongName} />
+      <AllNames persons={persons} nameError={nameError} wrongName={wrongName} setPersons={setPersons} />
 
-      <FilteredNames filteredPersonsArray={filteredPersonsArray} filterError={filterError} />
+      <FilteredNames filteredPersonsArray={filteredPersonsArray} filterError={filterError} setPersons={setPersons}/>
 
     </div>
   );

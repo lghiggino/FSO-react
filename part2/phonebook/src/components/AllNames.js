@@ -1,18 +1,20 @@
-export default function AllNames({ persons, nameError, wrongName }) {
+import PersonLi from "./PersonLi"
+
+export default function AllNames({ persons, nameError, wrongName, setPersons }) {
     return (
         <>
             <h2>Names</h2>
             {nameError &&
                 <div>
-                    <p>Error: {wrongName} already exists on the list</p>
+                    <p className={"error"}>Error: {wrongName} already exists on the list</p>
                 </div>
             }
-            {persons.map(person => (
-                <div key={person.id}>
-                    <span> {person.name}: </span>
-                    <span> {person.phone}</span>
-                </div>
-            ))}
+            <ul>
+                {persons.map(person => (
+                    <PersonLi key={person.id} person={person} setPersons={setPersons} />
+                    // <li key={person.id} className={"personLi"}> {person.name}: {person.number} <button>remove</button> </li>
+                ))}
+            </ul>
 
         </>
     )

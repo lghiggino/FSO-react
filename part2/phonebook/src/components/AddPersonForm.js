@@ -1,4 +1,7 @@
-export default function AddPersonForm( {persons, newName, nameError, wrongName, newPhone, setPersons, setNewName, setNameError, setWrongName, setNewPhone}) {
+import axios from "axios"
+import personService from "../services/persons"
+
+export default function AddPersonForm({ persons, newName, newPhone, setPersons, setNewName, setNameError, setWrongName, setNewPhone }) {
 
     const handlePersonChange = (event) => {
         setNewName(event.target.value)
@@ -10,7 +13,6 @@ export default function AddPersonForm( {persons, newName, nameError, wrongName, 
 
     const addPerson = (event) => {
         event.preventDefault()
-        // console.log("some", persons.some(el => el.name === newName))
         if (persons.some(el => el.name === newName)) {
             setNameError(true)
             setWrongName(newName)
@@ -19,11 +21,13 @@ export default function AddPersonForm( {persons, newName, nameError, wrongName, 
             return
         }
         const fullPersonData = {
-            "id": persons.length,
             "name": newName,
-            "phone": newPhone
+            "number": newPhone
         }
-        setPersons(persons.concat(fullPersonData))
+        personService.create(fullPersonData).then(response => {
+            console.log(response.data)
+            setPersons(persons.concat(response.data))
+        })
         setNewName("")
         setNewPhone("")
         setNameError(false)
