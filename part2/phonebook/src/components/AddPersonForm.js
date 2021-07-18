@@ -1,7 +1,7 @@
 import axios from "axios"
 import personService from "../services/persons"
 
-export default function AddPersonForm({ persons, newName, newPhone, setPersons, setNewName, setNameError, setWrongName, setNewPhone, setSuccess }) {
+export default function AddPersonForm({ persons, newName, newPhone, setPersons, setNewName, setNameError, setWrongName, setNewPhone, setNameEditSuccess }) {
 
     const handlePersonChange = (event) => {
         setNewName(event.target.value)
@@ -17,24 +17,30 @@ export default function AddPersonForm({ persons, newName, newPhone, setPersons, 
             let numberSubstitution = window.confirm(`${newName} is already in the phone book. Replace the old number with ${newPhone}?`)
             if (numberSubstitution) {
                 const singlePerson = persons.find(p => p.name === newName)
-                const changedPerson = {...singlePerson, number: newPhone}
+                const changedPerson = { ...singlePerson, number: newPhone }
 
                 personService.updateNumber(changedPerson.id, changedPerson).then(response => {
                     setPersons(persons.map(person => person.id !== response.data.id ? person : response.data))
+                }).then(nothing => {
+                    setNameEditSuccess(true)
+                    setNameError(false)
+                    setTimeout(() => {
+                        setNameEditSuccess(false)
+                    }, 5000);
+                    return
                 })
-                setSuccess(true)
-                setNameError(false)
-                return
             }
             else {
                 setNameError(true)
-                setSuccess(false)
+                setTimeout(() => { 
+                    setNameError(false)
+                }, 5000)
+                setNameEditSuccess(false)
                 setWrongName(newName)
                 setNewName("")
                 setNewPhone("")
                 return
             }
-
         }
         const fullPersonData = {
             "name": newName,

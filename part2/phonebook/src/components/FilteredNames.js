@@ -12,7 +12,6 @@ export default function FilteredNames({ filterError, filteredPersonsArray, setPe
             <ul>
                 {filteredPersonsArray.map(person => (
                     <PersonLi key={person.id} person={person} setPersons={setPersons} />
-                    // <li key={person.id} className={"personLi"}> {person.name}: {person.number} <button>remove</button> </li>
                 ))}
             </ul>
         </>

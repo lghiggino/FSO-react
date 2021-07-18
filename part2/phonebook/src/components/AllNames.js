@@ -1,10 +1,10 @@
 import PersonLi from "./PersonLi"
 
-export default function AllNames({ persons, nameError, wrongName, setPersons, success }) {
+export default function AllNames({ persons, nameError, wrongName, setPersons, nameEditSuccess }) {
     return (
         <>
             <h2>Names</h2>
-            {success &&
+            {nameEditSuccess &&
                 <div>
                     <p className={"success"}> Number changed successfully</p>
                 </div>
