@@ -36,7 +36,7 @@ let notes = [
         "id": 6
     },
     {
-        "content": "This is a new test note",
+        "content": "This is a new test note - banana",
         "date": "2021-07-08T23:56:06.112Z",
         "important": true,
         "id": 7
