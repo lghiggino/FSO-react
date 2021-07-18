@@ -46,6 +46,18 @@ let notes = [
         "date": "2021-07-09T00:04:37.983Z",
         "important": false,
         "id": 8
+    },
+    {
+        "content": "This should be deletable",
+        "date": "2021-07-09T00:04:37.983Z",
+        "important": false,
+        "id": 9
+    },
+    {
+        "content": "Banananananana",
+        "date": "2021-07-09T00:04:37.983Z",
+        "important": false,
+        "id": 10
     }
 ]
 
