@@ -35,7 +35,11 @@ app.delete("/api/notes/:id", (request,response) => {
 })
 
 //adding a new note
-
+app.post("/api/notes", (request,response) => {
+    const note = request.body
+    console.log(note)
+    response.json(note)
+})
 
 
 const PORT = 3001
