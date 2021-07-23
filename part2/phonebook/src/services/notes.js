@@ -12,12 +12,12 @@ const create = newObject => {
 }
 
 const updateImportance = (id, newObject) => {
-    const request = axios.put(`${baseUrl}/${id}`, newObject)
+    const request = axios.put(`${baseUrl}/${id}/importance`, newObject)
     return request.then(response => response.data)
 }
 
 const updateDate = (id, newObject) => {
-    const request = axios.put(`${baseUrl}/${id}`, newObject)
+    const request = axios.put(`${baseUrl}/${id}/date`, newObject)
     return request.then(response => response.data)
 }
 
