@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios"
+//import axios from "axios"
 import './App.css';
 
 
@@ -72,7 +72,7 @@ import './App.css';
 import Note from './components/Note';
 import Footer from "./components/Footer";
 
-import noteService from "./services/notes"
+import noteService from "./services/noteService"
 
 function App() {
   const [notes, setNotes] = useState([])
@@ -102,12 +102,14 @@ function App() {
       // id: notes.length + 1
     }
 
-    noteService.create(noteObject).then(responseNote => {
-      setNotes(notes.concat(responseNote))
+    noteService.create(noteObject).then(response => {
+      setNotes(notes.concat(response))
       setNewNote("")
+      setErrorMessage(null)
     })
       .catch(error => {
         console.log("Failed to Create New Note", error)
+        setErrorMessage(error)
       })
   }
 
@@ -165,6 +167,7 @@ function App() {
   return (
     <div className="App">
       <h1>Notes</h1>
+      {errorMessage ? <h2>{errorMessage.message}</h2> : ""}
       <div>
         <button onClick={() => { setShowAll(!showAll) }}>
           show {showAll ? "important" : "all"}
