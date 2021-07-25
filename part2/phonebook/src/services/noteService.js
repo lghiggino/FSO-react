@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseUrl = "http://localhost:3001/api/notes"
+const baseUrl = "api/notes"
 //"localhost:3001/api/notes"
 //"https://peaceful-crag-14176.herokuapp.com/api/notes"
 //"api/notes"
