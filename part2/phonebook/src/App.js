@@ -120,6 +120,8 @@ function App() {
   const toggleImportanceOf = (id) => {
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
+    console.log("changing importance of note", id)
+    setNotes(notes.map(note => note.id !== id ? note : changedNote))
 
     noteService.updateImportance(id, changedNote).then(responseNote => {
       setNotes(notes.map(note => note.id !== id ? note : responseNote))
@@ -127,6 +129,11 @@ function App() {
       .catch(error => {
         console.log("Failed to Update Importance", error)
       })
+      .finally(
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      )
   }
 
   async function updateDateOf(id) {
@@ -139,14 +146,14 @@ function App() {
       setNotes(notes.map(note => note.id !== id ? note : responseNote))
     })
       .catch(error => {
-        setErrorMessage(`Note ${note.content}'s was already removed`)
+        setErrorMessage(`Note ${note.content}'s was already removed`, error)
       })
       .finally(
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
       )
-    setNotes(notes.filter(n => n.id !== id))
+    //setNotes(notes.filter(n => n.id !== id))
 
   }
 
